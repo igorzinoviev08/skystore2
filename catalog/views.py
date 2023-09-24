@@ -7,7 +7,7 @@ def home(request):
 
 
 def contacts(request):
-    if request.metod == 'POST':
+    if request.method == 'POST':
         visiter = {}
         visiter['name'] = request.POST.get('name', None)
         visiter['phone'] = request.POST.get('phone', None)
