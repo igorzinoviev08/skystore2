@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 """
 Django settings for skystore project.
 
@@ -9,9 +12,9 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
-from pathlib import Path
 import os
+from pathlib import Path
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,8 +44,9 @@ INSTALLED_APPS = [
 
     'catalog'
 
-
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -78,16 +82,19 @@ WSGI_APPLICATION = 'skystore.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
+
 DATABASES = {
-    'default': {
+'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'skystore1',
+        'NAME': 'store1',
         'USER': 'postgres',
-        'PASSWORD': os.environ.get("pgAdmin"),
-        'HOST': 'localhost',
+        'PASSWORD': os.getenv("POSTGREE_PASSW"),
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
+
 
 
 # Password validation
