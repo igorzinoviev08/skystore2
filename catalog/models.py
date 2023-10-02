@@ -11,6 +11,10 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    class Meta:
+        ordering = ['-created_at']
+
+
     name = models.CharField(max_length=200)
     description = models.TextField()
     preview_description = models.TextField()
@@ -20,8 +24,7 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        ordering = ['-created_at']
+
 
     def __str__(self):
         return f"Product(pk={self.pk}, name={self.name!r}"
