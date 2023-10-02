@@ -8,15 +8,17 @@
 
     <div class="container">
         <div class="row text-center">
+            {% for products in products%}
             <div class="col-4">
                 <div class="card mb-4 box-shadow">
                     <div class="card-header">
-                        <h4 class="my-0 font-weight-normal">Basic</h4>
+                        <img src="{{product.image.url}}" style="max-with: 75%"alt="">
                     </div>
                     <div class="card-body">
-                        <h1 class="card-title pricing-card-title">$ 30</h1>
+                        <h1 class="card-title pricing-card-title">{{product.price}}</h1>
                         <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-                            <li>- Неограниченная лицензия</li>
+                            {% for preview in product.get_preview_description %}
+                            <li>{{preview}}</li>
                             <li>- Поддержка</li>
                             <li>- Установка на сервер</li>
                             <li>- Получение обновлений</li>
@@ -78,7 +80,7 @@
                 </div>
             </div>
             {% for num in "123" %}
-                <div class="collapse" id="collapseExample{{ num }}">
+
                     <div class="card card-body">
                         {% if num == "1" %}
                             Тут находится информация об обычной подписке.
@@ -92,7 +94,7 @@
                 </div>
             {% endfor %}
 
-
+            <div class="collapse" id="collapseExample{{product }}">
         </div>
     </div>
 {% endblock %}
