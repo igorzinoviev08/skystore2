@@ -4,7 +4,7 @@ from catalog.models import Product, Contact
 def home(request):
     context = {
         'title': 'SkyStore',
-        'products': Product.object.all()[:6]
+        'products': Product.objects.all()[:6]
     }
     return render(request, 'catalog/home.html', context=context)
 
