@@ -1,23 +1,89 @@
-from django.shortcuts import render
+from django.conf import settings
+from django.views.generic import ListView
 
-from catalog.models import Product, Contact
-def home(request):
-    context = {
-        'title': 'SkyStore',
-        'products': Product.object.all()[:6]
-    }
-    return render(request, 'catalog/home.html', context=context)
+import blog
 
 
-def contacts(request):
-    context = {
-        'title': 'Contact',
-        'address_info': Contact.objects.first()
-    }
-    if request.method == 'POST':
-        visiter = {}
-        visiter['name'] = request.POST.get('name', None)
-        visiter['phone'] = request.POST.get('phone', None)
-        visiter['massage'] = request.POST.get('message', None)
-        print(visiter)
-    return render(request, 'catalog/contacts.html', context=context)
+class BlogListView(ListView):
+    model = blog
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset(*args, **kwargs)
+        queryset = queryset.filter(is_published=True)
+        return queryset
+
+class BlogCreateView(CreateView):
+    model = blog
+    fields = ('name', 'description', 'image')
+    success_url = reverse_lasy('blog:list')
+
+class BlogUpdateView(UpdateView):
+    model = blog
+    fields = ('name', 'description', 'image')
+    success_url = reverse_lasy('blog:list')
+
+class BlogDeleteView(DeleteView):
+    model = blog
+    #fields = ('name', 'description', 'image')
+    success_url = reverse_lasy('blog:list')
+
+class BlogDetailView(DetailView):
+    model = blog
+
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        self.object.view_count +=1
+        if self.object.view_count == 100
+            send_mail(
+                subject='ПОЗДРАВЛЕНИЕ',
+                message=f'Поздравляем ваш пост {self.object.name} набрал 100 просмотров',
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=['igor.zinoviev08@yandex.ru'],
+                fail_silently=False,
+            )
+
+        self.object.save()
+        return self.object
+
+
+
+
+
+
+
+
+
+#from catalog.models import Product, Contact
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ProductListView(ListView):
+    model = Product
+    template_name = 'catalog/home.html'
+    context_object_name = 'products'
+    queryset = Product.objects.all()[:6]
+
+class ProductDetailView(DetailView):
+    model = Product
+    context_object_name = 'product'
+
+class ContactsListView(ListView):
+    model = Contact
+    template_name = 'catalog/contacts.html'
+    context_object_name = 'address_info'
+    queryset = Contact.objects.first()
+
+
+
+
+
