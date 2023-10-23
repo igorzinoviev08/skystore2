@@ -11,7 +11,7 @@ class ProductListView(ListView):
     model = Product
     template_name = 'catalog/home.html'
     context_object_name = 'products'
-    queryset = Product.objects.all()[:6]
+    queryset = Product.objects.all()
 
 class ProductDetailView(DetailView):
     model = Product
@@ -21,7 +21,7 @@ class ContactsListView(ListView):
     model = Contact
     template_name = 'catalog/contacts.html'
     context_object_name = 'address_info'
-    queryset = Contact.objects.first()
+    queryset = Contact.objects.all()
 
 
 
