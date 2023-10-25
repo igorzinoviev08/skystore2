@@ -17,10 +17,6 @@ class BlogListView(ListView):
         queryset = queryset.filter(is_published=True)
         return queryset
 
-
-
-
-
 class BlogCreateView(CreateView):
     model = Blog
     fields = ('name', 'description', 'image')
@@ -53,4 +49,8 @@ class BlogDetailView(DetailView):
 
         self.object.save()
         return self.object
+
+
+
+
 
