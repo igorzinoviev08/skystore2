@@ -14,10 +14,10 @@ class Blog(models.Model):
     def __str__(self):
         return f'{self.name}'
 
-    def save(self, *args, **kwargs):
+    def save(self, args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
-            super().save(*args, **kwargs)
+            super().save(args, **kwargs)
 
 
 
