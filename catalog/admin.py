@@ -19,3 +19,9 @@ class ProductAdmin(admin.ModelAdmin):
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
     list_display = ("pk", "country", "inn", "address")
+
+@admin.register(Version)
+class VersionAdmin(admin.ModelAdmin):
+    list_display = ("pk", "name", "number", "products")
+
+    def get_product_name(self, request, obj):
