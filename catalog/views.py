@@ -9,7 +9,7 @@ class ProductListView(ListView):
     model = Product
     template_name = 'catalog/home.html'
     context_object_name = 'products'
-    queryset = Product.object.all()[:6]
+    queryset = Product.objects.all()[:6]
 
 
     def get_context_data(self, **kwargs):

@@ -1,27 +1,29 @@
 from django.contrib import admin
 
-from catalog.models import Product, Category, Contact
-
-
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("pk", "name")
+from catalog.models import Product, Category, Contact, Version
 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("pk", "name", "price", "category")
-    list_display_links = ("pk", "name")
-    list_filter = ("category",)
-    search_fields = ("name", "description")
+    list_display = "pk", "name", "price", "category"
+    list_display_links = "pk", "name"
+    list_filter = ('category',)
+    search_fields = "name", "description"
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = "pk", "name"
 
 
 @admin.register(Contact)
-class ContactAdmin(admin.ModelAdmin):
-    list_display = ("pk", "country", "inn", "address")
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = "pk", "country", "inn", "address"
+
 
 @admin.register(Version)
 class VersionAdmin(admin.ModelAdmin):
-    list_display = ("pk", "name", "number", "products")
+    list_display = "pk", "get_product_names", "number", "name", "is_active"
 
-    def get_product_name(self, request, obj):
+    def get_product_names(self, obj):
+        return '; '.join([product.name for product in obj.products.all()])
