@@ -3,13 +3,14 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Product, Contact
-from .forms import ProductForm, VersionForm
-
+from .forms import ProductForm
 
 class ProductListView(ListView):
     model = Product
     template_name = 'catalog/home.html'
     context_object_name = 'products'
+    queryset = Product.object.all()[:6]
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

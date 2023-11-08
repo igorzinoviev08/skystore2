@@ -18,12 +18,7 @@ class ProductForm(forms.ModelForm):
 
     def clean_description(self):
         description = self.cleaned_data['description'].lower()
-        if set(description.split()).intersection(forbidden_words):
+        if set(description.split()).intersection(self.forbidden_words):
             raise forms.ValidationError(f"Нельзя использовать запрещенное слово в описании продукта.")
         return description
 
-
-# class VersionForm(forms.ModelForm):
-#     class Meta:
-#         model = Version
-#         fields = ['version_number', 'vesion_name', 'is_active']

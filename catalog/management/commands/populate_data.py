@@ -38,7 +38,7 @@ class Command(BaseCommand):
                         category=category,
                         price=item['fields']['price'],
                         created_at=item['fields']['created_at'],
-                       # last_modified=item['fields']['last_modified']
+
                     )
 
             with open(BASE_DIR / 'catalog/fixtures/contacts.json', 'r', encoding='cp1251') as file:
