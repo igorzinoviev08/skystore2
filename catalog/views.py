@@ -29,6 +29,7 @@ class ProductCreateView(CreateView):
     def form_valid(self, form):
         new_product = form.save()
         new_product.save()
+        if form.cleaned_data['version'] is not None:
         selected_version = form.cleaned_data['version']
         selected_version.products.add(new_product)
         return super().form_valid(form)
