@@ -19,12 +19,12 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+load_dotenv(BASE_DIR / '.env')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)rab!vi=@%8x#=339gk@+^lr#bhbtnerjj4qkm!r4y8oi*whom'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -91,9 +91,9 @@ WSGI_APPLICATION = 'skystore.wsgi.application'
 DATABASES = {
 'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'store1',
+        'NAME': os.getenv('DATABASES_NAME'),
         'USER': 'postgres',
-        'PASSWORD': os.getenv("POSTGREE_PASSW"),
+        'PASSWORD': os.getenv('DATABASES_PASSWORD'),
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -149,8 +149,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #email settings
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST')
-EMAIL_HOST_PASSWORD = os.getenv(('EMAIL_PASSWORD'))
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')
 EMAIL_USE_SSL = False
 EMAIL_USE_TLS = True
 
@@ -158,3 +158,12 @@ EMAIL_USE_TLS = True
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+DOMAIN_NAME = os.getenv('DOMAIN_NAME')
+# cache
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': os.getenv('CACHES_LOCATION'), }}
+
+
